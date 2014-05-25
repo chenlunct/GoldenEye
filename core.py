@@ -72,14 +72,15 @@ class core:
 
             for page in range(0,10):
                 pagestring = self.TryGetPage("http://blog.sina.com.cn/s/article_sort_"+str(userid)+"_10001_"+str(page)+".html")
+                if u"暂无博文".encode('gbk') in pagestring:
+                    return itemList
                 try:
                     pagedata = etree.HTML(pagestring.decode('gbk','ignore'))
                     itemList.extend(pagedata.xpath(u"//div[@class='blog_title']/a/@href"))
                 except:
                     print "page analyze error:"
                     print pagestring
-                # if u"没有对应的宝贝".encode('gbk') in pagestring or u"很抱歉，搜索到".encode('gbk') in pagestring:
-                #     return sorted(set(itemList),key=itemList.index)
+
         elif self.BlogType == 1:
             # future use for other blogs
             pass

@@ -1,4 +1,4 @@
 {
-'enable_proxy':False,
+'enable_proxy':True,
 'proxy_address':'127.0.0.1:8888'
 }
