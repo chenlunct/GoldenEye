@@ -58,6 +58,35 @@ class core:
 
         return page
 
+    # blogurl: url should be the formart as "http://blog.sina.com.cn/u/1491999985"
+    def GetItemList(self, blogurl):
+        from lxml import etree
+        itemList = []
+        if self.BlogType == 0:
+            p0 = re.compile(r"\d+")
+
+            try:
+                userid = p0.findall(blogurl)[0]
+            except:
+                print "wrong url: ",blogurl
+
+            for page in range(0,10):
+                pagestring = self.TryGetPage("http://blog.sina.com.cn/s/article_sort_"+str(userid)+"_10001_"+str(page)+".html")
+                try:
+                    pagedata = etree.HTML(pagestring.decode('gbk','ignore'))
+                    itemList.extend(pagedata.xpath(u"//div[@class='blog_title']/a/@href"))
+                except:
+                    print "page analyze error:"
+                    print pagestring
+                # if u"没有对应的宝贝".encode('gbk') in pagestring or u"很抱歉，搜索到".encode('gbk') in pagestring:
+                #     return sorted(set(itemList),key=itemList.index)
+        elif self.BlogType == 1:
+            # future use for other blogs
+            pass
+        print itemList
+        return itemList
+
+
 if __name__ == '__main__':
     c = core()
-    print c.TryGetPage("http://www.bing.com/")
+    print c.GetItemList("http://blog.sina.com.cn/u/1491999985")
