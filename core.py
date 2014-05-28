@@ -13,9 +13,10 @@ import copy
 import lxml
 
 class core:
-    def __init__(self):
+    def __init__(self,blogtype = 0):
         # 0 for SinaBlog
-        self.BlogType = 0
+        # 1 for Xueqiu
+        self.BlogType = blogtype
         file = open('config.yml')
         self.config_data = yaml.load(file)
         file.close()
@@ -82,12 +83,75 @@ class core:
                     print pagestring
 
         elif self.BlogType == 1:
-            # future use for other blogs
-            pass
-        print itemList
+            p0 = re.compile(r"\d+")
+            try:
+                userid = p0.findall(blogurl)[0]
+            except:
+                print "wrong url: ",blogurl
+
+            for page in range(1,50):
+                pagestring = self.TryGetPage("http://xueqiu.com/statuses/user_timeline.json?user_id="+str(userid)+"&page="+str(page))
+
+                try:
+                    jsondata = self.parse_js(pagestring)
+                    if int(jsondata["page"]) > int(jsondata["maxPage"]):
+                        return itemList
+                    statuslist = jsondata["list"]
+                    for status in statuslist:
+                        resultrow = []
+                        if status["retweet_status_id"]==0:
+                            stocklist = self.hasStock(status["description"])
+                        else:
+                            stocklist = self.hasStock(status["description"]+status["retweeted_status"]["description"]+status["retweeted_status"]["title"])
+                        if stocklist == []:
+                            continue
+                        resultrow.append(str(status["id"]))
+                        resultrow.append(status["created_at"])
+                        resultrow.append(str(status["user_id"]))
+                        resultrow.append(stocklist)
+                        itemList.append(resultrow)
+                except:
+                    print "page analyze error:"
+                    print pagestring
+
         return itemList
 
+    # return a list of stocks if the input text has stocks
+    # Example:[SH000001]
+    # if there is no stock in text
+    # retuen []
+    def hasStock(self, text):
+        p0 = re.compile(r"(?<=\()SH\d{6}(?=\))")
+        p1 = re.compile(r"(?<=\()SZ\d{6}(?=\))")
+        stocklist = []
+        stocklist.extend(p0.findall(text))
+        stocklist.extend(p1.findall(text))
+        return list(set(stocklist))
+
+    def parse_js(self,expr):
+        import ast
+        m = ast.parse(expr)
+        a = m.body[0]
+        def parse(node):
+            if isinstance(node, ast.Expr):
+                return parse(node.value)
+            elif isinstance(node, ast.Num):
+                return node.n
+            elif isinstance(node, ast.Str):
+                return node.s
+            elif isinstance(node, ast.Name):
+                return node.id
+            elif isinstance(node, ast.Dict):
+                return dict(zip(map(parse, node.keys), map(parse, node.values)))
+            elif isinstance(node, ast.List):
+                return map(parse, node.elts)
+            else:
+                raise NotImplementedError(node.__class__)
+        return parse(a)
 
 if __name__ == '__main__':
-    c = core()
-    print c.GetItemList("http://blog.sina.com.cn/u/1491999985")
+    # c = core()
+    # print c.GetItemList("http://blog.sina.com.cn/u/1491999985")
+    c = core(1)
+    # print c.hasStock("(SH600104):上汽集团计划提升,九阳股份(SZ002242):九阳股份(SZ002242)九阳股份(SZ002242)九阳股份(SZ002242)$格力电器(SZ000651)$ 新")
+    c.GetItemList("http://xueqiu.com/7279006625")
