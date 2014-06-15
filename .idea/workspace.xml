@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="759c7efe-1338-41d6-a96a-8701ecb47ab3" name="Default" comment="Update function:&#10;GetItemList&#10;BlogType = 1 to support XueQiu&#10;&#10;Check in function:&#10;1.hasStock&#10;Return list of article urls">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/GoldenEye.iml" afterPath="$PROJECT_DIR$/.idea/GoldenEye.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.py" afterPath="$PROJECT_DIR$/core.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -31,7 +30,7 @@
       <file leaf-file-name="core.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="118" column="6" selection-start="4447" selection-end="4499" vertical-scroll-proportion="0.27887788" vertical-offset="1902" max-vertical-offset="2907">
+            <state line="110" column="49" selection-start="4252" selection-end="4252" vertical-scroll-proportion="-0.10144927" vertical-offset="2010" max-vertical-offset="2907">
               <folding />
             </state>
           </provider>
@@ -40,7 +39,7 @@
       <file leaf-file-name="config.yml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="19" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="171">
+            <state line="1" column="19" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="19" max-vertical-offset="171">
               <folding />
             </state>
           </provider>
@@ -70,10 +69,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1592" />
-    <option name="y" value="-379" />
-    <option name="width" value="1696" />
-    <option name="height" value="1066" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -128,7 +127,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/SkyDrive/Python/Emotion" />
     <property name="FullScreen" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
@@ -320,15 +319,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1592" y="-379" width="1696" height="1066" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16130953" sideWeight="0.6777302" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3222698" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1609375" sideWeight="0.6777302" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32142857" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23019272" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -355,27 +354,38 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/core.py</url>
-          <line>113</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/core.py</url>
-          <line>116</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/core.py</url>
-          <line>97</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="7" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="110" column="49" selection-start="4252" selection-end="4252" vertical-scroll-proportion="0.0" vertical-offset="2090" max-vertical-offset="2907">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="19" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="19" max-vertical-offset="171">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="6" selection-start="3061" selection-end="3061" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1691">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="19" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="19" max-vertical-offset="171">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="84" column="40" selection-start="2946" selection-end="2946" vertical-scroll-proportion="0.0" vertical-offset="1103" max-vertical-offset="1691">
@@ -427,7 +437,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="6" selection-start="4447" selection-end="4499" vertical-scroll-proportion="0.27887788" vertical-offset="1902" max-vertical-offset="2907">
+        <state line="110" column="49" selection-start="4252" selection-end="4252" vertical-scroll-proportion="-0.10144927" vertical-offset="2010" max-vertical-offset="2907">
           <folding />
         </state>
       </provider>
