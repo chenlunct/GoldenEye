@@ -1,5 +1,6 @@
 import urllib
 import time
+import datetime
 
 debug=True
 class StockInfo:
@@ -29,11 +30,24 @@ class StockInfo:
         dstream = [year,month,day]
         return dstream
 
+    # Change the input date of Saturday/Sunday to last Friday since Sat/Sun is invalidate date.
+    def AlignDate(self,startdate):
+        x = time.strptime(startdate,'%Y-%m-%d')
+        sdate = datetime.datetime(x[0],x[1],x[2] )
+        # Saturday & Sunday is not a valid date
+        if sdate.weekday() == 5 :
+            sdate = sdate + datetime.timedelta(days = -1 )
+        if sdate.weekday() == 6 :
+            sdate = sdate + datetime.timedelta(days = -2 )
+
+        return sdate.strftime('%Y-%m-%d')
+
     # Function : Read the stock csv file from Yahoo interfaces
     # Save the stock csv file into local file.
     # startdate should be on the format of 'yyyy-mm-dd'
     # ndays means the enddate = qdate + ndays
     def GetStockStrByNum(self,ID,startdate):
+        startdate = self.AlignDate(startdate)
         myid = self.IDformat(ID)
         s = self.DateParam(startdate)
         # Yahoo query interface is : &a=mm&b=dd&c=yyyy
@@ -51,9 +65,10 @@ class StockInfo:
         else :
             return False
 
+
 def Main():
     c = StockInfo()
-    if c.GetStockStrByNum('SH600021','2011-10-24') :
+    if c.GetStockStrByNum('SH600021','2014-6-6') :
         print c.stockitem
     else :
         print "Unable to retrieve stock info"
