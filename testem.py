@@ -31,4 +31,4 @@ e = EmotionCore.EmotionalCalculator()
 # print token,n
 # print e.isPartOfName("a", "aaabbbccc", "bb")
 e.Load()
-print e.calStart("正股今天收盘3.73，除以3.53，价值105.67元 分红后，在其他条件不变情况下， 转债价值立马提升 分红0.26元后，正股3.73-0.26=3.47，除以3.53-0.26=3.27，价值106.12元。 数字游戏也能赚钱！！！")
+print e.calStart('''回复<a href="http://xueqiu.com/n/陆上小白龙"  target="_blank">@陆上小白龙</a>: 绝对的挚爱，再涨一些就超过伊利成我第一重仓股<img src="http://js.xueqiu.com/images/face/21lol.png" title="[大笑]" alt="[大笑]"   height="24" />//<a href="http://xueqiu.com/n/陆上小白龙"  target="_blank">@陆上小白龙</a>:回复<a href="http://xueqiu.com/n/疯狂_de_石头"  target="_blank">@疯狂_de_石头</a>:这个欧亚简直就是你的至爱嘛。 真那么好？''')

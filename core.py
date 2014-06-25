@@ -96,7 +96,7 @@ class core:
                     jsondata = self.parse_js(pagestring)
                     if int(jsondata["page"]) > int(jsondata["maxPage"]):
                         return itemList
-                    statuslist = jsondata["list"]
+                    statuslist = jsondata["statuses"]
                     for status in statuslist:
                         resultrow = []
                         if status["retweet_status_id"]==0:
@@ -109,10 +109,18 @@ class core:
                         resultrow.append(status["created_at"])
                         resultrow.append(str(status["user_id"]))
                         resultrow.append(stocklist)
+                        resultrow.append(status["text"])
+                        resultrow.append("0")
                         itemList.append(resultrow)
                 except:
                     print "page analyze error:"
                     print pagestring
+        # itemList[0]:    id
+        # itemList[1]:    create time
+        # itemList[2]:    user id
+        # itemList[3]:    stocklist
+        # itemList[4]:    text
+        # itemList[5]:    emotion score
 
         return itemList
 

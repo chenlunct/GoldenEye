@@ -217,7 +217,7 @@ class EmotionalCalculator:
             num = self.dict[fragment]
             strArray.append(str(num))
             self.wordLocation[n] = string.join(strArray)
-            pattern = EmotionalCalculator.pattern(kind, int(self.dict[fragment]), n, n + len(fragment))
+            pattern = EmotionalCalculator.pattern(kind, int(float(self.dict[fragment])), n, n + len(fragment))
             self.eSent.append(pattern)
             if not self.existWord.has_key("e " + fragment):
                 self.existWord["e " + fragment] = 1
@@ -232,10 +232,9 @@ class EmotionalCalculator:
             strArray.append("\t")
             strArray.append(str(fragment))
             strArray.append("\t")
-            num = self.dict[fragment]
             strArray.append(str(self.degDict[fragment]))
             self.wordLocation[n] = string.join(strArray)
-            pattern = EmotionalCalculator.pattern(kind, int(self.degDict[fragment]), n, n + len(fragment))
+            pattern = EmotionalCalculator.pattern(kind, int(float(self.degDict[fragment])), n, n + len(fragment))
             self.eSent.append(pattern)
             if not self.existWord.has_key("d " + fragment):
                 self.existWord["d " + fragment] = 1
@@ -250,10 +249,9 @@ class EmotionalCalculator:
             strArray.append("\t")
             strArray.append(str(fragment))
             strArray.append("\t")
-            num = self.negDict[fragment]
             strArray.append(str(self.negDict[fragment]))
             self.wordLocation[n] = string.join(strArray)
-            pattern = EmotionalCalculator.pattern(kind, int(self.negDict[fragment]), n, n + len(fragment))
+            pattern = EmotionalCalculator.pattern(kind, int(float(self.negDict[fragment])), n, n + len(fragment))
             self.eSent.append(pattern)
             if not self.existWord.has_key("n " + fragment):
                 self.existWord["n " + fragment] = 1
