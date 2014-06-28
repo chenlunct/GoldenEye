@@ -42,6 +42,20 @@ class StockInfo:
 
         return sdate.strftime('%Y-%m-%d')
 
+    # Return  startdate + ndays under YYYY-MM-DD format
+    def PlusDate(self,startdate,ndays):
+        x = time.strptime(startdate,'%Y-%m-%d')
+        sdate = datetime.datetime(x[0],x[1],x[2] )
+        edate = sdate + datetime.timedelta(days = ndays )
+
+        # Saturday & Sunday is not a valid date
+        if edate.weekday() == 5 :
+            edate = edate + datetime.timedelta(days = -1 )
+        if sdate.weekday() == 6 :
+            edate = edate + datetime.timedelta(days = -2 )
+
+        return edate.strftime('%Y-%m-%d')
+
     # Function : Read the stock csv file from Yahoo interfaces
     # Save the stock csv file into local file.
     # startdate should be on the format of 'yyyy-mm-dd'
@@ -54,7 +68,7 @@ class StockInfo:
         startfrom = '&a='+s[1]+'&b='+s[2]+'&c='+s[0]
         endto = '&d='+s[1]+'&e='+s[2]+'&f='+s[0]
         myurl = 'http://ichart.yahoo.com/table.csv?s='+ myid + startfrom + endto +'&g=d'
-        print myurl
+        #print myurl
         # retrieve csf info from remote url
         f = urllib.urlopen(myurl)
         self.csvbody = f.readlines()
@@ -68,7 +82,7 @@ class StockInfo:
 
 def Main():
     c = StockInfo()
-    if c.GetStockStrByNum('SH600021','2014-6-6') :
+    if c.GetStockStrByNum('SZ002312','2014-06-25') :
         print c.stockitem
     else :
         print "Unable to retrieve stock info"
