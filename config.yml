@@ -1,4 +1,7 @@
 {
 'enable_proxy':True,
-'proxy_address':'127.0.0.1:8888'
+'proxy_address':'127.0.0.1:8888',
+'max_pages':3,
+'observe_days':5,
+'userid_list':'7571730629,4080074145,4074947120,3559889031,5116618835'
 }
