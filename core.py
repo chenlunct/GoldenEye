@@ -5,12 +5,14 @@ import urllib
 import urllib2
 import yaml
 import time
+import datetime
 import cookielib
 import commands
 import re
 import json
 import copy
 import lxml
+import StockInfo
 
 class core:
     def __init__(self,blogtype = 0):
@@ -20,6 +22,8 @@ class core:
         file = open('config.yml')
         self.config_data = yaml.load(file)
         file.close()
+        self.max_pages = self.config_data['max_pages']
+        self.observe_days = self.config_data['observe_days']
         enable_proxy = self.config_data['enable_proxy']
         self.cj = cookielib.LWPCookieJar()
         self.cookie_support = urllib2.HTTPCookieProcessor(self.cj)
@@ -89,7 +93,7 @@ class core:
             except:
                 print "wrong url: ",blogurl
 
-            for page in range(1,50):
+            for page in range(1,self.max_pages):
                 pagestring = self.TryGetPage("http://xueqiu.com/statuses/user_timeline.json?user_id="+str(userid)+"&page="+str(page))
 
                 try:
@@ -105,22 +109,62 @@ class core:
                             stocklist = self.hasStock(status["description"]+status["retweeted_status"]["description"]+status["retweeted_status"]["title"])
                         if stocklist == []:
                             continue
+                        # create time should be on format of YYYY-mm-dd
+                        ts = status["created_at"]/1000
+                        dt = datetime.datetime.fromtimestamp(ts)
+                        s = StockInfo.StockInfo()
+                        startdate = dt.strftime('%Y-%m-%d')
+                        enddate = s.PlusDate(startdate,self.observe_days )
+                        s_pricelist = []
+                        e_pricelist = []
+
+                        for stock in stocklist:
+                            if s.GetStockStrByNum(stock,startdate) :
+                                s_pricelist.append(float(s.stockitem[2]) )
+                            else:
+                                s_pricelist.append(0)
+
+                            if s.GetStockStrByNum(stock,enddate) :
+                                e_pricelist.append(float(s.stockitem[2]) )
+                            else:
+                                e_pricelist.append(0)
+
+                        percent_list = []
+                        for i in range(len(stocklist)) :
+                            if (s_pricelist[i]==0) or (e_pricelist[i]==0) :
+                                percent_list.append('%0')
+                            else :
+                                per_number = (e_pricelist[i] - s_pricelist[i])/ s_pricelist[i]
+                                percent_list.append(format(per_number,'.2%'))
+
+                        # itemList[0]:    id
+                        # itemList[1]:    user id
+                        # itemList[2]:    user name
+                        # itemList[3]:    stocklist
+                        # itemList[4]:    start_date
+                        # itemList[5]:    pricelist
+                        # itemList[6]:    end_date
+                        # itemList[7]:    end_pricelist
+                        # itemlist[8]:    stock price percentage
+                        # itemList[9]:   emotion score
+                        # itemList[10]:    text
                         resultrow.append(str(status["id"]))
-                        resultrow.append(status["created_at"])
                         resultrow.append(str(status["user_id"]))
+                        resultrow.append(str(status["user"]["screen_name"] ))
                         resultrow.append(stocklist)
-                        resultrow.append(status["text"])
+                        resultrow.append(startdate)
+                        resultrow.append(s_pricelist)
+                        resultrow.append(enddate)
+                        resultrow.append(e_pricelist)
+                        resultrow.append(percent_list)
                         resultrow.append("0")
+                        resultrow.append(status["text"])
+
                         itemList.append(resultrow)
                 except:
                     print "page analyze error:"
                     print pagestring
-        # itemList[0]:    id
-        # itemList[1]:    create time
-        # itemList[2]:    user id
-        # itemList[3]:    stocklist
-        # itemList[4]:    text
-        # itemList[5]:    emotion score
+
 
         return itemList
 
