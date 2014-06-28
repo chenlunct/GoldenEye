@@ -1,36 +1,59 @@
+# coding: utf-8
 import core
-import StockInfo
 import EmotionCore
+import yaml
 import csv
+import codecs
+
+
 
 if __name__ == '__main__':
-    # data[0]:    id
-    # data[1]:    create time
-    # data[2]:    user id
-    # data[3]:    stocklist
-    # data[4]:    text
-    # data[5]:    emotion score
+
+    f = open('config.yml')
+    config_data = yaml.load(f)
+    f.close()
+    userid_list = config_data['userid_list'].split(',')
+
+    # itemList[0]:    id
+    # itemList[1]:    user id
+    # itemList[2]:    user name
+    # itemList[3]:    stocklist
+    # itemList[4]:    start_date
+    # itemList[5]:    pricelist
+    # itemList[6]:    end_date
+    # itemList[7]:    end_pricelist
+    # itemlist[8]:    stock price percentage
+    # itemList[9]:   emotion score
+    # itemList[10]:    text
     ##################init##################
     c = core.core(1)
     e = EmotionCore.EmotionalCalculator()
     e.Load()
-    s = StockInfo.StockInfo()
-
-    ##################basic info##################
+    # This is must in order to get the cookie from xueqiu
     c.TryGetPage("http://xueqiu.com/")
-    data = c.GetItemList("http://xueqiu.com/4080074145")
 
-    ##################cal emotion##################
-    for row in data:
-        try:
-            score = e.calStart(row[4])
-            row[5] = str(score)
-        except:
-            print "cal emotion error!"
-            continue
-
-    ##################write csv##################
-    csvfile = file('test.csv', 'wb')
-    writer = csv.writer(csvfile)
-    writer.writerows(data)
+    csvfile = file('test.csv','wb')
+    csvfile.write(codecs.BOM_UTF8)
     csvfile.close()
+
+    for userid in userid_list :
+        ##################basic info##################
+
+        url = "http://xueqiu.com/"+userid
+        print url
+        data = c.GetItemList(url)
+        ##################cal emotion##################
+        for row in data:
+            try:
+                score = e.calStart(row[10])
+                row[9] = str(score)
+            except:
+                print "cal emotion error!"
+                continue
+
+        ##################write csv##################
+        csvfile = file('test.csv', 'ab')
+        csvfile.write(codecs.BOM_UTF8)
+        writer = csv.writer(csvfile)
+        writer.writerows(data)
+        csvfile.close()
